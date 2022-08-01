@@ -57,7 +57,7 @@ CREATE TABLE Testcases (
 );
 
 INSERT INTO Testcases
-  (`id`, `startDate`, `endDate`)
+  (`id`, `startDate`, `endDate`,`status`)
 VALUES
   ('1', '2011-12-19 06:00:00', '2011-12-19 08:45:00',true),
   ('2', '2011-12-19 06:15:00', '2011-12-19 06:30:00',true),
