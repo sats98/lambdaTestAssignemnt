@@ -48,7 +48,7 @@ This is the final query
 
 
 // example input
-
+```
 CREATE TABLE Testcases (
   `id` INTEGER,
   `startDate` DATETIME,
@@ -66,6 +66,7 @@ VALUES
   ('5', '2011-12-19 07:15:00', '2011-12-19 08:45:00'true),
   ('6', '2011-12-19 07:30:00', '2011-12-19 07:50:00'true),
   ('7', '2011-12-19 08:00:00', '2011-12-19 08:30:00'true),
+  ```
 
 
 
