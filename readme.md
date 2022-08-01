@@ -1,4 +1,4 @@
-###Problem statement
+##Problem statement
 
 A SQL table containing columns testCaseId , startDate, endDate and status of a Table Testcases is given.
 A lot of data is streaming in continously. You need to find the maximum concurrency occured in a given period of time (lets say last hour).
@@ -6,12 +6,15 @@ A lot of data is streaming in continously. You need to find the maximum concurre
 
 I am trying to make a result using all the distinct timestamps in the table. (UNION strips duplicates.)
 
+ ```
  SELECT startDate as time FROM Testcases
  UNION 
  SELECT endDate as time FROM Testcases
-
+ ```
+ 
  After getting the result i can see how many testcases are active/running at these points in time. So I am grouping by 
-
+ 
+```
 SELECT COUNT(*) as concurrent, time.time
 FROM Testcases 
 JOIN (
@@ -20,11 +23,13 @@ JOIN (
     SELECT endDate as time FROM Testcases
 ) time ON Testcases.startDate <= time.time AND Testcases.endDate > time.time
 GROUP BY time.time
+```
 
 We can compund index on (startDate,endDate) 
 Now we can group the result set by the specified time here (hourly) to get the maximum cuncurrency for the last hour.
 
-```SELECT DATE_FORMAT(time, '%Y-%m-%d %H:00') hour_beginning,
+```
+SELECT DATE_FORMAT(time, '%Y-%m-%d %H:00') hour_beginning,
        MAX(concurrent) concurrent
     FROM (
          SELECT COUNT(*) as concurrent, time.time
@@ -36,7 +41,8 @@ Now we can group the result set by the specified time here (hourly) to get the m
                 ) time ON Testcases.startDate <= time.time AND Testcases.endDate > time.time
                 GROUP BY time.time
         ) q
-        GROUP BY DATE_FORMAT(time, '%Y-%m-%d %H:00') ```
+        GROUP BY DATE_FORMAT(time, '%Y-%m-%d %H:00') 
+ ```
 
 This is the final query
 
